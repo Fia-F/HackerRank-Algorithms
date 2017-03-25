@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+//https://www.hackerrank.com/challenges/non-divisible-subset/submissions/code/41071467
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int[] record = new int[k];
+        int size = 0;
+        
+        for (int i=0; i<n;i++){
+            int a = sc.nextInt();
+            int mod = a % k;
+            record[mod]++;
+        }
+        
+        if(k%2==0){ // k is even
+            for (int j=0; j< (k/2)-1; j++){
+                if (Integer.compare(record[j+1], record[k-j-1]) >= 0){
+                    size += record[j+1];
+                }else{
+                    size += record[k-j-1];
+                }
+            }
+            if (record[k/2] >= 1){
+                size+=1;
+            }
+        }else{  // k is odd
+            for (int j=0; j< k/2;j++){
+                if (Integer.compare(record[j+1], record[k-j-1]) >= 0){
+                    size += record[j+1];
+                }else{
+                    size += record[k-j-1];
+                }
+            }
+        }
+        if(record[0] >= 1){
+            size += 1;
+        }
+        System.out.println(size);
+    }
+}
